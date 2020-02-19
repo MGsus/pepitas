@@ -1,0 +1,43 @@
+<app-msg [message]="msg.message"></app-msg>
+
+<div class="card">
+  <h4 class="card-header">Register</h4>
+  <div class="card-body">
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
+      <div class="input-group" [ngClass]="setClassNickname()">
+        <div class="input-group-prepend">
+          <span class="input-group-text">
+            <i class="fa fa-user"></i>
+          </span>
+        </div>
+        <input
+          class="form-control"
+          type="text"
+          name="nickname"
+          formControlName="nickname"
+          placeholder="Nickname"
+          autofocus
+        />
+      </div>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">
+            <i class="fa fa-black-tie"></i>
+          </span>
+        </div>
+        <select class="custom-select" name="role" formControlName="role">
+          <option value="" selected disabled>Role</option>
+          <option value="user">User</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
+      <button
+        class="btn btn-primary"
+        type="submit"
+        [disabled]="!registerForm.valid"
+      >
+        <i class="fa fa-user-plus"></i> Register
+      </button>
+    </form>
+  </div>
+</div>

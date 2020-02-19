@@ -1,0 +1,115 @@
+<app-loading [condition]="isLoading"></app-loading>
+
+<app-msg [message]="msg.message"></app-msg>
+
+<div *ngIf="!isLoading">
+  <h4>Current pools ({{ pools.length }})</h4>
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Code</th>
+          <th scope="col">Date</th>
+          <th scope="col">Results</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="pools.length === 0">
+        <tr>
+          <td colspan="4">
+            There are no pools in the DB. Add a new pool below.
+          </td>
+        </tr>
+      </tbody>
+      <tbody *ngIf="!isEditing">
+        <tr *ngFor="let pool of pools">
+          <td>{{ pool.code }}</td>
+          <td>{{ pool.date }}</td>
+          <td><button (click)="showResults(pool)">Show</button></td>
+          <td>
+            <button (click)="enableEditing(pool)"><i></i> Edit</button>
+            <button (click)="deletePool(pool)"><i></i> Delete</button>
+          </td>
+        </tr>
+      </tbody>
+
+      <tbody *ngIf="isEditing">
+        <tr>
+          <td colspan="4">
+            <form #form="ngForm" (ngSubmit)="editPool(pool)">
+              <input
+                type="text"
+                name="name"
+                [(ngModel)]="pool.name"
+                placeholder="Name"
+                required
+              />
+              <input
+                type="number"
+                name="age"
+                [(ngModel)]="pool.age"
+                placeholder="Age"
+                min="0"
+                required
+              />
+              <input
+                type="number"
+                name="weight"
+                [(ngModel)]="pool.weight"
+                placeholder="Weight"
+                step="any"
+                min="0"
+                required
+              />
+              <button type="submit" [disabled]="!form.form.valid">
+                <i></i> Save
+              </button>
+              <button (click)="cancelEditing()"><i></i> Cancel</button>
+            </form>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div *ngIf="_showResult">
+  <table>
+    <thead>
+      <tr>
+        <th scope="col">Votante</th>
+        <th scope="col">Pepitas verdes</th>
+        <th scope="col">Pepitas rojas</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let result of pool">
+      <td>{{ result.user }}</td>
+      <td>{{ result.greenMarbles }}</td>
+      <td>{{ result.redMarbles }}</td>
+    </tbody>
+  </table>
+  <button (click)="cancelResults()"><i></i> Cancel</button>
+</div>
+
+<div *ngIf="!isEditing">
+  <h4>Add new pool</h4>
+  <div>
+    <form [formGroup]="addPoolForm" (ngSubmit)="addPool()">
+      <input
+        type="text"
+        name="totalPeople"
+        formControlName="totalPeople"
+        placeholder="Cantidad de Personas"
+      />
+      <input
+        type="number"
+        name="marbles"
+        formControlName="marbles"
+        placeholder="Pepitas"
+        step="any"
+        min="0"
+      />
+      <button type="submit" [disabled]="!addPoolForm.valid"><i></i> Add</button>
+    </form>
+  </div>
+</div>
