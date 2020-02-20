@@ -57,14 +57,32 @@ export default class poolCtrl extends BaseCtrl {
     try {
       let rslt = await this.model.findOne({ code: code });
       if (!rslt) response = { message: "La sesion no existe" };
-      rslt.results.push({
-        user: user,
-        redMarbles: rslt.marbles - _redM,
-        greenMarbles: rslt.marbles - _greenM
-      });
-      let _res = await rslt.save();
-      if (!_res) response = { message: "no hay resultados" };
-      response = _res;
+      if (rslt.results.length !== 0)
+        rslt.results.forEach(async (obj: any) => {
+          if (obj.user == user) {
+            response = { message: "El usuario ya ha realizado su voto" };
+          } else {
+            // validar el numero de marbles no se pase del posible por persona
+            rslt.results.push({
+              user: user,
+              redMarbles: rslt.marbles - _redM,
+              greenMarbles: rslt.marbles - _greenM
+            });
+            let _res = await rslt.save();
+            if (!_res) response = { message: "no hay resultados" };
+            response = _res;
+          }
+        });
+      else {
+        rslt.results.push({
+          user: user,
+          redMarbles: rslt.marbles - _redM,
+          greenMarbles: rslt.marbles - _greenM
+        });
+        let _res = await rslt.save();
+        if (!_res) response = { message: "no hay resultados" };
+        response = _res;
+      }
     } catch (_err) {
       if (_err) return { error: _err };
     }
