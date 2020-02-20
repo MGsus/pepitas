@@ -1,6 +1,7 @@
 // Angular
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { JwtModule } from '@auth0/angular-jwt';
+import { ChartsModule } from "ng2-charts";
 // Modules
 import { AppRoutingModule } from './app-routing.module';
 import { SharedModule } from './shared/shared.module';
@@ -42,6 +43,7 @@ export function tokenGetter() {
   imports: [
     AppRoutingModule,
     SharedModule,
+    ChartsModule,
     JwtModule.forRoot({
       config: {
         tokenGetter,

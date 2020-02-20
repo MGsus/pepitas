@@ -1,7 +1,9 @@
-<app-loading [condition]="isLoading"></app-loading>
-
 <app-msg [message]="msg.message"></app-msg>
 
+<div class="jumbotron text-center">
+  <h1>Mood Marbles</h1>
+  <p>Metodoligías agile</p>
+</div>
 <div *ngIf="!isLoading">
   <h4>Current pools ({{ pools.length }})</h4>
   <div>
@@ -17,7 +19,7 @@
       <tbody *ngIf="pools.length === 0">
         <tr>
           <td colspan="4">
-            There are no pools in the DB. Add a new pool below.
+            No ha creado ninguna votación. Agregue una a continuación.
           </td>
         </tr>
       </tbody>
@@ -37,30 +39,10 @@
         <tr>
           <td colspan="4">
             <form #form="ngForm" (ngSubmit)="editPool(pool)">
-              <input
-                type="text"
-                name="name"
-                [(ngModel)]="pool.name"
-                placeholder="Name"
-                required
-              />
-              <input
-                type="number"
-                name="age"
-                [(ngModel)]="pool.age"
-                placeholder="Age"
-                min="0"
-                required
-              />
-              <input
-                type="number"
-                name="weight"
-                [(ngModel)]="pool.weight"
-                placeholder="Weight"
-                step="any"
-                min="0"
-                required
-              />
+              <input type="text" name="name" [(ngModel)]="pool.name" placeholder="Name" required />
+              <input type="number" name="age" [(ngModel)]="pool.age" placeholder="Age" min="0" required />
+              <input type="number" name="weight" [(ngModel)]="pool.weight" placeholder="Weight" step="any" min="0"
+                required />
               <button type="submit" [disabled]="!form.form.valid">
                 <i></i> Save
               </button>
@@ -88,28 +70,63 @@
       <td>{{ result.redMarbles }}</td>
     </tbody>
   </table>
-  <button (click)="cancelResults()"><i></i> Cancel</button>
+  <button (click)="cancelResults()"><i></i> Cancelar</button>
 </div>
-
-<div *ngIf="!isEditing">
-  <h4>Add new pool</h4>
-  <div>
+<div class="container-fluid">
+<div *ngIf="!isEditing" class="row">
+  <div class="col-sm-4">
+    <br>
+    <span class="fa fa-adjust logo slideanim"></span>
+  </div>
+  <div class="col-sm-8 ">
     <form [formGroup]="addPoolForm" (ngSubmit)="addPool()">
-      <input
-        type="text"
-        name="totalPeople"
-        formControlName="totalPeople"
-        placeholder="Cantidad de Personas"
-      />
-      <input
-        type="number"
-        name="marbles"
-        formControlName="marbles"
-        placeholder="Pepitas"
-        step="any"
-        min="0"
-      />
-      <button type="submit" [disabled]="!addPoolForm.valid"><i></i> Add</button>
+      <div class="input-group">
+        <h4>Ingrese el número de personas.</h4>
+        <div class="def-number-input number-input safari_only">
+          <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
+          <input class="quantity" min="1" name="totalPeople" value="1" type="number" formControlName="totalPeople" />
+          <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+        </div>
+      </div>
+      <div class="input-group ">
+        <h4>Ingrese el número de canicas.</h4>
+        <div class="def-number-input number-input safari_only">
+          <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
+          <input class="quantity" min="1" type="number" name="marbles" formControlName="marbles" />
+          <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+        </div>
+      </div>
+      <button type="button" class="btn btn-outline-primary" [disabled]="!addPoolForm.valid"><i></i>Crear</button>
     </form>
   </div>
 </div>
+</div>
+<div class="container-fluid text-center bg-light" id=Info>
+  <h2>INFORMACIÓN DE LA APLICACIÓN</h2>
+  <h4>Información de los desarrolladores del aplicativo Mood Marbles</h4>
+  <br>
+  <div class="row slideanim">
+    <div class="col-sm-4">
+    </div>
+    <div class="col-sm-4">
+      <span class="fa fa-cloud logo-small"></span>
+      <h4>IBM CLOUD</h4>
+      <p>CLOUD FUTURE CLUB COLOMBIA 2020</p>
+    </div>
+  </div>
+  
+  <div class="container-fluid text-center bg-light">
+    <div>
+      <div style="display: block">
+        <canvas baseChart
+          [datasets]="barChartData"
+          [labels]="barChartLabels"
+          [options]="barChartOptions"
+          [plugins]="barChartPlugins"
+          [legend]="barChartLegend"
+          [chartType]="barChartType">
+        </canvas>
+      </div>
+      <button mat-button mat-raised-button color="primary" (click)="randomize()">Update</button>
+    </div>
+  </div>

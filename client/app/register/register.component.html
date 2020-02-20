@@ -1,8 +1,10 @@
 <app-msg [message]="msg.message"></app-msg>
+<div class="jumbotron text-center">
+  <h1>Register</h1>
+  <p>Por favor ingrese los siguientes datos</p>
+</div>
 
-<div class="card">
-  <h4 class="card-header">Register</h4>
-  <div class="card-body">
+  <div class="card-body text-center">
     <form [formGroup]="registerForm" (ngSubmit)="register()">
       <div class="input-group" [ngClass]="setClassNickname()">
         <div class="input-group-prepend">
@@ -40,4 +42,4 @@
       </button>
     </form>
   </div>
-</div>
+

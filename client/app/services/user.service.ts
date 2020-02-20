@@ -44,6 +44,6 @@ export class UserService {
   }
 
   vote(vote: Vote): Observable<Vote> {
-    return this.http.post<Vote>("/api/user/vote", vote);
+    return this.http.post("/api/user/vote", vote);
   }
 }

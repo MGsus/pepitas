@@ -1,45 +1,23 @@
 <app-msg [message]="msg.message"></app-msg>
+<div class="jumbotron text-center">
+  <h1>Login</h1>
+  <p>Por favor ingrese su Nickname</p>
+</div>
+  
+    <div class="card-body text-center">
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <div class="input-group" [ngClass]="setClassNickname()">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fa fa-user"></i>
+            </span>
+          </div>
+          <input class="form-control" type="nickname" name="nickname" formControlName="nickname" placeholder="Nickname"
+            autofocus />
+        </div>
+        <button class="btn btn-primary" type="submit" [disabled]="!loginForm.valid">
+          <i class="fa fa-sign-in"></i> Login
+        </button>
+      </form>
 
-<div class="card">
-  <h4 class="card-header">Login</h4>
-  <div class="card-body">
-    <form [formGroup]="loginForm" (ngSubmit)="login()">
-      <div class="input-group" [ngClass]="setClassNickname()">
-        <div class="input-group-prepend">
-          <span class="input-group-text">
-            <i class="fa fa-envelope"></i>
-          </span>
-        </div>
-        <input
-          class="form-control"
-          type="nickname"
-          name="nickname"
-          formControlName="nickname"
-          placeholder="Nickname"
-          autofocus
-        />
-      </div>
-      <!-- <div class="input-group" [ngClass]="setClassCode()"> -->
-      <!-- <div class="input-group-prepend">
-          <span class="input-group-text">
-            <i class="fa fa-key"></i>
-          </span>
-        </div>
-        <input
-          class="form-control"
-          type="code"
-          name="code"
-          formControlName="code"
-          placeholder="Code"
-        />
-      </div> -->
-      <button
-        class="btn btn-primary"
-        type="submit"
-        [disabled]="!loginForm.valid"
-      >
-        <i class="fa fa-sign-in"></i> Login
-      </button>
-    </form>
-  </div>
 </div>

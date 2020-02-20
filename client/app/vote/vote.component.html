@@ -1,22 +1,37 @@
 <app-msg [message]="msg.message"></app-msg>
 
-<div>
+<div *ngIf="!hasCode">
   <h5>Inserte el código de sesión</h5>
-  <form [formGroup]="voteForm" (ngSubmit)="_vote()">
-    <div class="input-group" [ngClass]="setClassCode()">
+  <form [formGroup]="codeForm" (ngSubmit)="setSessionCode()">
+    <input
+      class="form-control"
+      type="text"
+      name="code"
+      id="code"
+      formControlerName="code"
+      placeholder="Código"
+      autofocus
+    />
+    <button type="submit" class="btn btn-primary" [disabled]="!codeForm.valid">
+      <i></i> Enviar
+    </button>
+  </form>
+</div>
+<div *ngIf="hasCode">
+  <form [formGroup]="voteForm" (ngSubmit)="vote()">
+    <div class="input-group" [ngClass]="setCode()">
       <input
         type="text"
         name="code"
         id="code"
-        formControlName="code"
+        formControlerName="code"
         placeholder="Código"
         autofocus
       />
       <input
         type="number"
-        name="greenMarbles"
-        id="greenMarbles"
-        formControlName="greenMarbles"
+        name="grnMarbles"
+        formControlName="grnMarbles"
         placeholder="Pepitas verdes"
         step="any"
         min="0"
@@ -24,15 +39,18 @@
       <input
         type="number"
         name="redMarbles"
-        id="redMarbles"
         formControlName="redMarbles"
-        placeholder="Pepitas Rojas"
+        placeholder="Pepitas rojas"
         step="any"
         min="0"
       />
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="!voteForm.valid"
+      >
+        <i></i> Votar
+      </button>
     </div>
-    <button type="submit" class="btn btn-primary" [disabled]="!voteForm.valid">
-      <i></i> Votar
-    </button>
   </form>
 </div>
