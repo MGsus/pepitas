@@ -101,7 +101,27 @@
   </div>
 </div>
 </div>
-<div class="container-fluid text-center bg-light" id=Info>
+
+<div class="container-fluid text-center bg-light">
+  <div>
+    <div style="display: block">
+      <canvas baseChart
+      [colors]="barChartColors"
+        [datasets]="barChartData"
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [plugins]="barChartPlugins"
+        [legend]="barChartLegend"
+        [chartType]="barChartType"
+        >
+        
+      </canvas>
+    </div>
+    <button mat-button mat-raised-button color="primary" (click)="randomize()">Update</button>
+  </div>
+</div>
+
+<div class="container-fluid text-center" id=Info>
   <h2>INFORMACIÓN DE LA APLICACIÓN</h2>
   <h4>Información de los desarrolladores del aplicativo Mood Marbles</h4>
   <br>
@@ -115,18 +135,4 @@
     </div>
   </div>
   
-  <div class="container-fluid text-center bg-light">
-    <div>
-      <div style="display: block">
-        <canvas baseChart
-          [datasets]="barChartData"
-          [labels]="barChartLabels"
-          [options]="barChartOptions"
-          [plugins]="barChartPlugins"
-          [legend]="barChartLegend"
-          [chartType]="barChartType">
-        </canvas>
-      </div>
-      <button mat-button mat-raised-button color="primary" (click)="randomize()">Update</button>
-    </div>
-  </div>
+ 
