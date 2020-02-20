@@ -47,9 +47,11 @@ export class VoteComponent implements OnInit {
     // igualmente esta enviando el mensaje tu voto ha sido registrado
     this.user.vote(this.voteForm.value).subscribe(
       (res: any) => {
-        // this.user.vote
-        this.voteForm.reset();
-        this.msg.setMessage("Tu voto ha sido registrado", "success");
+        // this.router.navigate(["/"]);
+        this.voteForm.reset;
+        
+        if (res.message !== undefined) this.msg.setMessage(res.message, "danger");
+        else this.msg.setMessage("Tu voto ha sido registrado", "success");
       },
       (error: any) =>
         this.msg.setMessage(
