@@ -65,8 +65,8 @@ export default class poolCtrl extends BaseCtrl {
             // validar el numero de marbles no se pase del posible por persona
             rslt.results.push({
               user: user,
-              redMarbles: rslt.marbles - _redM,
-              greenMarbles: rslt.marbles - _greenM
+              redMarbles: _redM,
+              greenMarbles: _greenM
             });
             let _res = await rslt.save();
             if (!_res) response = { message: "no hay resultados" };
