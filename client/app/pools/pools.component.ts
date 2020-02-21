@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
-import * as pluginDataLabels from 'chartjs-plugin-datalabels';
-import { Label, Colors } from 'ng2-charts';
+import { ChartOptions, ChartType, ChartDataSets } from "chart.js";
+import * as pluginDataLabels from "chartjs-plugin-datalabels";
+import { Label, Colors } from "ng2-charts";
 import {
   FormBuilder,
   FormControl,
@@ -20,56 +20,10 @@ import * as $ from "jquery";
   styleUrls: ["./pools.component.css"]
 })
 export class PoolsComponent implements OnInit {
-  public barChartOptions: ChartOptions = {
-    responsive: true,
-    // We use these empty structures as placeholders for dynamic theming.
-    scales: { xAxes: [{}], 
-    yAxes: [{}] },
-    plugins: {
-      datalabels: {
-        anchor: 'end',
-        align: 'end',
-      }
-    }
-  };
-  public barChartLabels: Label[] = ['2006'];
-  public barChartType: ChartType = 'bar';
-  public barChartColors: Array<any>=[{ backgroundColor:'rgb(72,202,105)'}, {backgroundColor:'rgb(245,48,29)'}]
-  public barChartLegend = true;
-  public barChartPlugins = [pluginDataLabels];
-
-  public barChartData: ChartDataSets[] = [
-    
-    { data: [65], label: 'Series A' },
-    { data: [28], label: 'Series B' }
-  ];
-
-
-  // events
-  public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
-    console.log(event, active);
-  }
-
-  public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
-    console.log(event, active);
-  }
-  public randomize(): void {
-    // Only Change 3 values
-    const data = [
-      Math.round(Math.random() * 100),
-      59,
-      80,
-      (Math.random() * 100),
-      56,
-      (Math.random() * 100),
-      40];
-    this.barChartData[0].data = data;
-  }
-
-
-
   pool = new Pool();
   pools: Pool[] = [];
+
+  results: any;
   isLoading = true;
   isEditing = false;
   _showResult = false;
@@ -82,7 +36,7 @@ export class PoolsComponent implements OnInit {
     private poolService: PoolService,
     private formBuilder: FormBuilder,
     public msg: MsgComponent
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.getPools();
@@ -90,21 +44,27 @@ export class PoolsComponent implements OnInit {
       totalPeople: this.totalPeople,
       marbles: this.marbles
     });
-    $(document).ready(function () {
-      $(".navbar a, footer a[href='#myPage']").on('click', function (event) {
+    $(document).ready(function() {
+      $(".navbar a, footer a[href='#myPage']").on("click", function(event: {
+        preventDefault: () => void;
+      }) {
         if (this.hash !== "") {
           event.preventDefault();
           var hash = this.hash;
-          $('html, body').animate({
-            scrollTop: $(hash).offset().top
-          }, 900, function () {
-            window.location.hash = hash;
-          });
+          $("html, body").animate(
+            {
+              scrollTop: $(hash).offset().top
+            },
+            900,
+            function() {
+              window.location.hash = hash;
+            }
+          );
         }
       });
 
-      $(window).scroll(function () {
-        $(".slideanim").each(function () {
+      $(window).scroll(function() {
+        $(".slideanim").each(function() {
           var pos = $(this).offset().top;
 
           var winTop = $(window).scrollTop();
@@ -113,9 +73,70 @@ export class PoolsComponent implements OnInit {
           }
         });
       });
-    })
+    });
   }
- 
+
+  public barChartOptions: ChartOptions = {
+    responsive: true,
+    // We use these empty structures as placeholders for dynamic theming.
+    scales: { xAxes: [{}], yAxes: [{}] },
+    plugins: {
+      datalabels: {
+        anchor: "end",
+        align: "end"
+      }
+    }
+  };
+  public barChartLabels: Label[] = ["2006"];
+  public barChartType: ChartType = "bar";
+  public barChartColors: Array<any> = [
+    { backgroundColor: "rgb(72,202,105)" },
+    { backgroundColor: "rgb(245,48,29)" }
+  ];
+  public barChartLegend = true;
+  public barChartPlugins = [pluginDataLabels];
+  // array de numeros y recorrer para colocar los numeros en el array de datos
+
+  public barChartData: ChartDataSets[] = [
+    {
+      data: [0],
+      label: "Pepitas verdes"
+    },
+    { data: [0], label: "Pepitas rojas" }
+  ];
+
+  // events
+  public chartClicked({
+    event,
+    active
+  }: {
+    event: MouseEvent;
+    active: {}[];
+  }): void {
+    console.log(event, active);
+  }
+
+  public chartHovered({
+    event,
+    active
+  }: {
+    event: MouseEvent;
+    active: {}[];
+  }): void {
+    console.log(event, active);
+  }
+  public randomize(): void {
+    // produce la cantidad de pepitas verdes del array de resultados
+    const grnData = [
+      this.results.filter((res: any) => res.greenMarbles > 0).length
+    ];
+    let redData = [
+      this.results.filter((res: any) => res.redMarbles > 0).length
+    ];
+    this.barChartData[0].data = grnData;
+    this.barChartData[1].data = redData;
+  }
+
   getPools() {
     this.poolService.getPools().subscribe(
       data => (this.pools = data),
@@ -162,7 +183,15 @@ export class PoolsComponent implements OnInit {
   showResults(pool: Pool) {
     this.poolService.getPool(pool).subscribe(() => {
       this._showResult = true;
-      this.pool = pool.results;
+      this.results = pool.results;
+      const grnData = [
+        this.results.filter((res: any) => res.greenMarbles > 0).length
+      ];
+      let redData = [
+        this.results.filter((res: any) => res.redMarbles > 0).length
+      ];
+      this.barChartData[0].data = grnData;
+      this.barChartData[1].data = redData;
     });
   }
 
