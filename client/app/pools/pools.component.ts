@@ -79,7 +79,7 @@ export class PoolsComponent implements OnInit {
   public barChartOptions: ChartOptions = {
     responsive: true,
     // We use these empty structures as placeholders for dynamic theming.
-    scales: { xAxes: [{}], yAxes: [{}] },
+    scales: { xAxes: [{}], yAxes: [{ticks:{beginAtZero: true}}] },
     plugins: {
       datalabels: {
         anchor: "end",
@@ -87,7 +87,7 @@ export class PoolsComponent implements OnInit {
       }
     }
   };
-  public barChartLabels: Label[] = ["2006"];
+  public barChartLabels: Label[] = ["Canicas verdes Vs Canicas rojas"];
   public barChartType: ChartType = "bar";
   public barChartColors: Array<any> = [
     { backgroundColor: "rgb(72,202,105)" },
@@ -100,9 +100,9 @@ export class PoolsComponent implements OnInit {
   public barChartData: ChartDataSets[] = [
     {
       data: [0],
-      label: "Pepitas verdes"
+      label: "Canicas verdes"
     },
-    { data: [0], label: "Pepitas rojas" }
+    { data: [0], label: "Canicas rojas" }
   ];
 
   // events
@@ -154,11 +154,6 @@ export class PoolsComponent implements OnInit {
       },
       error => console.log(error)
     );
-  }
-
-  enableEditing(pool: Pool) {
-    this.isEditing = true;
-    this.pool = pool;
   }
 
   cancelEditing() {
