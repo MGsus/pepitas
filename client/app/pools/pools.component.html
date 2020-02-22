@@ -13,19 +13,29 @@
     <div class="col-sm-8 ">
       <form [formGroup]="addPoolForm" (ngSubmit)="addPool()">
         <div class="input-group">
-          <h4>Mood marbles es una metodología agile que pretende conocer el estado de animo de un equipo de trabajo por medio de su voto por una canica verde o roja.</h4>
-        <div><h6> Cree una votación para aplicar la metodología con su equipo de trabajo.</h6>
-        <br></div>
+          <h4>
+            Mood marbles es una metodología agile que pretende conocer el estado
+            de animo de un equipo de trabajo por medio de su voto por una canica
+            verde o roja.
+          </h4>
+          <div>
+            <h6>
+              Cree una votación para aplicar la metodología con su equipo de
+              trabajo.
+            </h6>
+            <br />
+          </div>
+
           <h4>Ingrese el número de personas.</h4>
           <div class="def-number-input number-input safari_only">
             <button
               onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-              class="minus"></button>
+              class="minus"
+            ></button>
             <input
               class="quantity"
               min="1"
               name="totalPeople"
-              value="1"
               type="number"
               formControlName="totalPeople"
             />
@@ -55,7 +65,12 @@
             ></button>
           </div>
         </div>
-        <button type="button" class="btn btn-outline-primary" [disabled]="!addPoolForm.valid"><i></i>Crear
+        <button
+          type="button"
+          class="btn btn-outline-primary"
+          [disabled]="!addPoolForm.valid"
+        >
+          <i></i>Crear
         </button>
       </form>
     </div>
@@ -64,35 +79,50 @@
 
 <div class="container-fluid text-center bg-light" id="Info">
   <h2>INFORMACIÓN DE VOTACIONES</h2>
-  <h4> A continuación encontrará las votaciones realizadas con su respectiva fecha
-    de creación y el código de la sesión.</h4>
+  <h4>
+    A continuación encontrará las votaciones realizadas con su respectiva fecha
+    de creación y el código de la sesión.
+  </h4>
   <div class="row slideanim">
     <div class="col-sm-4"></div>
-      <div>
-        <table class="table">
-          <thead class="table table-hover">
-            <tr>
-              <th class="bg-primary" style="color: azure;" scope="col">Código</th>
-              <th class="bg-primary" style="color: azure;" scope="col">Fecha</th>
-              <th class="bg-primary" scope="col"></th>
-              <th class="bg-primary" scope="col"></th>
-            </tr>
-          </thead>
-          <tbody *ngIf="pools.length === 0">
-            <tr>
-              <td colspan="4">No ha creado ninguna votación. Agregue una a continuación.</td>
-            </tr>
-          </tbody>
-          <tbody>
-            <tr *ngFor="let pool of pools">
-              <td>{{ pool.code }}</td>
-              <td>{{ pool.date }}</td>
-              <td><button (click)="showResults(pool)" class="btn btn-outline-primary" >Mostrar</button>
-                <button (click)="deletePool(pool)" class="btn btn-outline-primary" ><i></i> Borrar</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+    <div>
+      <table class="table">
+        <thead class="table table-hover">
+          <tr>
+            <th class="bg-primary" style="color: azure;" scope="col">Código</th>
+            <th class="bg-primary" style="color: azure;" scope="col">Fecha</th>
+            <th class="bg-primary" scope="col"></th>
+            <th class="bg-primary" scope="col"></th>
+          </tr>
+        </thead>
+        <tbody *ngIf="pools.length === 0">
+          <tr>
+            <td colspan="4">
+              No ha creado ninguna votación. Agregue una a continuación.
+            </td>
+          </tr>
+        </tbody>
+        <tbody>
+          <tr *ngFor="let pool of pools">
+            <td>{{ pool.code }}</td>
+            <td>{{ pool.date }}</td>
+            <td>
+              <button
+                (click)="showResults(pool)"
+                class="btn btn-outline-primary"
+              >
+                Mostrar
+              </button>
+              <button
+                (click)="deletePool(pool)"
+                class="btn btn-outline-primary"
+              >
+                <i></i> Borrar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
   <div *ngIf="_showResult" class="container-fluid text-center bg-light">
@@ -110,28 +140,43 @@
         >
         </canvas>
       </div>
-      <button mat-button mat-raised-button class="btn btn-outline-primary"(click)="randomize()">Actualizar</button>
+      <button
+        mat-button
+        mat-raised-button
+        class="btn btn-outline-primary"
+        (click)="randomize()"
+      >
+        Actualizar
+      </button>
     </div>
   </div>
   <div class="row slideanim">
     <div class="col-sm-4"></div>
-  <div *ngIf="_showResult" > 
-    <table>
-      <thead class="table table-hover">
-        <tr>
-          <th class="bg-primary" style="color: azure;" scope="col">Usuario</th>
-          <th class="bg-primary" style="color: azure;" scope="col">Canicas verdes</th>
-          <th class="bg-primary" style="color: azure;" cope="col">Canicas rojas</th>
-        </tr>
-      </thead>
-      <tbody *ngFor="let result of results">
-        <td>{{ result.user }}</td>
-        <td>{{ result.greenMarbles }}</td>
-        <td>{{ result.redMarbles }}</td>
-      </tbody>
-    </table>
-    <button class="btn btn-outline-primary" (click)="cancelResults()"><i></i> Ocultar</button>
-  </div>
+    <div *ngIf="_showResult">
+      <table>
+        <thead class="table table-hover">
+          <tr>
+            <th class="bg-primary" style="color: azure;" scope="col">
+              Usuario
+            </th>
+            <th class="bg-primary" style="color: azure;" scope="col">
+              Canicas verdes
+            </th>
+            <th class="bg-primary" style="color: azure;" cope="col">
+              Canicas rojas
+            </th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let result of results">
+          <td>{{ result.user }}</td>
+          <td>{{ result.greenMarbles }}</td>
+          <td>{{ result.redMarbles }}</td>
+        </tbody>
+      </table>
+      <button class="btn btn-outline-primary" (click)="cancelResults()">
+        <i></i> Ocultar
+      </button>
+    </div>
   </div>
 </div>
 
