@@ -69,8 +69,19 @@
   border-width: 0 1px;
   font-size: 1rem;
   height: 2rem;
-  color: #ffffff;
+  color: #0080ff;
 }
+/* Chrome, Safari, Edge, Opera */
+/* input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+} */
+
+/* Firefox */
+/* input[type=number] {
+  -moz-appearance:textfield;
+} */
 
 @media not all and (min-resolution: 0.001dpcm) {
   @supports (-webkit-appearance: none) and (stroke-color: transparent) {

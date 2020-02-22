@@ -11,62 +11,62 @@
       <span class="fa fa-adjust logo slideanim"></span>
     </div>
     <div class="col-sm-8 ">
+      <h5>
+        Mood marbles es una metodología agile que pretende conocer el estado de
+        animo de un equipo de trabajo por medio de su voto por una canica verde
+        o roja.
+      </h5>
+      <div>
+        <h4 style="font-weight: bold;">
+          Cree una votación para aplicar la metodología con su equipo de
+          trabajo.
+        </h4>
+      </div>
       <form [formGroup]="addPoolForm" (ngSubmit)="addPool()">
-        <div class="input-group">
-          <h4>
-            Mood marbles es una metodología agile que pretende conocer el estado
-            de animo de un equipo de trabajo por medio de su voto por una canica
-            verde o roja.
-          </h4>
-          <div>
-            <h6>
-              Cree una votación para aplicar la metodología con su equipo de
-              trabajo.
-            </h6>
-            <br />
-          </div>
-
-          <h4>Ingrese el número de personas.</h4>
-          <div class="def-number-input number-input safari_only">
-            <button
-              onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-              class="minus"
-            ></button>
-            <input
-              class="quantity"
-              min="1"
-              name="totalPeople"
-              type="number"
-              formControlName="totalPeople"
-            />
-            <button
-              onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-              class="plus"
-            ></button>
-          </div>
+        <h4 style="color: #0080FF;">Ingrese el número de personas.</h4>
+        <div class="form-group def-number-input number-input safari_only">
+          <button
+            type="button"
+            onclick="this.parentNode.querySelector('.quantity').stepDown()"
+            class="minus"
+          ></button>
+          <input
+            class="quantity"
+            min="1"
+            name="totalPeople"
+            formControlName="totalPeople"
+            type="number"
+          />
+          <button
+            type="button"
+            class="plus"
+            onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+          ></button>
         </div>
-        <div class="input-group text-center">
+        <div class="form-group">
           <h4>Ingrese el número de canicas.</h4>
           <div class="def-number-input number-input safari_only">
             <button
-              onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+              type="button"
+              onclick="this.parentNode.querySelector('.quantity').stepDown()"
               class="minus"
             ></button>
             <input
               class="quantity"
               min="1"
-              type="number"
               name="marbles"
+              type="number"
               formControlName="marbles"
             />
             <button
+              type="button"
               onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
               class="plus"
             ></button>
           </div>
         </div>
         <button
-          type="button"
+          type="submit"
           class="btn btn-outline-primary"
           [disabled]="!addPoolForm.valid"
         >
