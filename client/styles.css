@@ -44,7 +44,7 @@ h4 {
   font-family: Montserrat, sans-serif;
 }
 .container-fluid {
-  padding: 60px 50px;
+  padding: 30px 50px;
 }
 
 .bg-grey {
@@ -255,6 +255,7 @@ p {
   left: 50%;
   position: fixed;
   top: 50%;
+  width: 35%;
   transform: translate(-50%, -50%);
 }
 

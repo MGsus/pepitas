@@ -3,7 +3,7 @@
   <h1>Login</h1>
   <p>Por favor ingrese su Nickname</p>
 </div>
-  
+  <div class="container">
     <div class="card-body text-center">
       <form [formGroup]="loginForm" (ngSubmit)="login()">
         <div class="input-group" [ngClass]="setClassNickname()">
@@ -19,5 +19,5 @@
           <i class="fa fa-sign-in"></i> Login
         </button>
       </form>
-
+    </div>
 </div>

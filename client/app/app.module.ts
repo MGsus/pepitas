@@ -14,7 +14,6 @@ import { AuthGuardAdmin } from './services/auth-guard-admin.service';
 // Components
 import { AppComponent } from './app.component';
 import { PoolsComponent } from './pools/pools.component';
-import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
@@ -31,7 +30,6 @@ export function tokenGetter() {
   declarations: [
     AppComponent,
     PoolsComponent,
-    HomeComponent,
     RegisterComponent,
     LoginComponent,
     LogoutComponent,

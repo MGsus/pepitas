@@ -1,38 +1,50 @@
 <app-msg [message]="msg.message"></app-msg>
-
+<div class="jumbotron text-center">
+  <h1>Mood Marbles</h1>
+  <p>Metodoligías agile</p>
+</div>
 <div>
-  <h5>Inserte el código de sesión</h5>
   <form [formGroup]="voteForm" (ngSubmit)="_vote()">
     <div class="input-group" [ngClass]="setClassCode()">
-      <input
-        type="text"
-        name="code"
-        id="code"
-        formControlName="code"
-        placeholder="Código"
-        autofocus
-      />
-      <input
-        type="number"
-        name="greenMarbles"
-        id="greenMarbles"
-        formControlName="greenMarbles"
-        placeholder="Pepitas verdes"
-        step="any"
-        min="0"
-      />
-      <input
-        type="number"
-        name="redMarbles"
-        id="redMarbles"
-        formControlName="redMarbles"
-        placeholder="Pepitas Rojas"
-        step="any"
-        min="0"
-      />
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-4">
+            <br />
+            <span class="fa fa-adjust logo slideanim"></span>
+          </div>
+          <div class="col-sm-8 ">
+            <h5>Mood marbles es una metodología agile que pretende conocer el estado de
+              ánimo de un equipo de trabajo por medio de su voto por una canica verde
+              o roja.</h5>
+            <div>
+              <h4 style="font-weight: bold;">
+                Ingrese su código votación y el número de canicas de cada color que desea agregar a su voto.
+              </h4>
+            </div>
+            <input type="text" name="code" id="code" formControlName="code" placeholder="Código" autofocus /><br />
+            <input type="number" name="greenMarbles" id="greenMarbles" formControlName="greenMarbles"
+              placeholder="Canicas verdes" step="any" min="0" /><br />
+            <input type="number" name="redMarbles" id="redMarbles" formControlName="redMarbles"
+              placeholder="Canicas Rojas" step="any" min="0" /><br /><br />
+            <button type="submit" class="btn btn-primary" [disabled]="!voteForm.valid">
+              <i></i> Votar
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
-    <button type="submit" class="btn btn-primary" [disabled]="!voteForm.valid">
-      <i></i> Votar
-    </button>
   </form>
+</div>
+<div class="container-fluid text-center  bg-light" id="Info">
+  <h2>INFORMACIÓN DE LA APLICACIÓN</h2>
+  <h4>Información de los desarrolladores del aplicativo Mood Marbles</h4>
+  <br />
+  <div class="row slideanim">
+    <div class="col-sm-4"></div>
+    <div class="col-sm-4">
+      <span class="fa fa-cloud logo-small"></span>
+      <h4>IBM CLOUD</h4>
+      <p>CLOUD FUTURE CLUB COLOMBIA 2020</p>
+    </div>
+  </div>
 </div>

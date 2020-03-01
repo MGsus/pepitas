@@ -23,47 +23,11 @@
         </h4>
       </div>
       <form [formGroup]="addPoolForm" (ngSubmit)="addPool()">
-        <h4 style="color: #0080FF;">Ingrese el número de personas.</h4>
-        <div class="form-group def-number-input number-input safari_only">
-          <button
-            type="button"
-            onclick="this.parentNode.querySelector('.quantity').stepDown()"
-            class="minus"
-          ></button>
-          <input
-            class="quantity"
-            min="1"
-            name="totalPeople"
-            formControlName="totalPeople"
-            type="number"
-          />
-          <button
-            type="button"
-            class="plus"
-            onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-          ></button>
-        </div>
+        <h4>Ingrese el número de personas.</h4>
+        <p><input min="0" type="number" name="edad" style="background-color: #0080FF;"> </p>
         <div class="form-group">
           <h4>Ingrese el número de canicas.</h4>
-          <div class="def-number-input number-input safari_only">
-            <button
-              type="button"
-              onclick="this.parentNode.querySelector('.quantity').stepDown()"
-              class="minus"
-            ></button>
-            <input
-              class="quantity"
-              min="1"
-              name="marbles"
-              type="number"
-              formControlName="marbles"
-            />
-            <button
-              type="button"
-              onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-              class="plus"
-            ></button>
-          </div>
+            <p><input min="0" type="number" name="edad" style="background-color: #0080FF;"> </p>        
         </div>
         <button
           type="submit"

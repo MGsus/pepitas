@@ -2,6 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import { UserService } from "../services/user.service";
 import { MsgComponent } from "../shared/msg/msg.component";
 import { Router } from "@angular/router";
+import { ChartOptions, ChartType, ChartDataSets } from "chart.js";
+import * as pluginDataLabels from "chartjs-plugin-datalabels";
+import { Label, Colors } from "ng2-charts";
 import {
   FormGroup,
   FormControl,
@@ -9,6 +12,7 @@ import {
   FormBuilder
 } from "@angular/forms";
 import { AuthService } from "../services/auth.service";
+import * as $ from "jquery";
 
 @Component({
   selector: "app-vote",
@@ -35,6 +39,36 @@ export class VoteComponent implements OnInit {
       greenMarbles: this.greenMarbles,
       redMarbles: this.redMarbles,
       nickname: this.auth.currentUser.nickname
+    });
+    $(document).ready(function() {
+      $(".navbar a, footer a[href='#myPage']").on("click", function(event: {
+        preventDefault: () => void;
+      }) {
+        if (this.hash !== "") {
+          event.preventDefault();
+          var hash = this.hash;
+          $("html, body").animate(
+            {
+              scrollTop: $(hash).offset().top
+            },
+            900,
+            function() {
+              window.location.hash = hash;
+            }
+          );
+        }
+      });
+
+      $(window).scroll(function() {
+        $(".slideanim").each(function() {
+          var pos = $(this).offset().top;
+
+          var winTop = $(window).scrollTop();
+          if (pos < winTop + 600) {
+            $(this).addClass("slide");
+          }
+        });
+      });
     });
   }
 
