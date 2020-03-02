@@ -24,10 +24,26 @@
       </div>
       <form [formGroup]="addPoolForm" (ngSubmit)="addPool()">
         <h4>Ingrese el número de personas.</h4>
-        <p><input min="0" type="number" name="edad" style="background-color: #0080FF;"> </p>
+        <p>
+          <input
+            min="0"
+            type="number"
+            name="totalPeople"
+            formControlName="totalPeople"
+            style="background-color: #0080FF;"
+          />
+        </p>
         <div class="form-group">
           <h4>Ingrese el número de canicas.</h4>
-            <p><input min="0" type="number" name="edad" style="background-color: #0080FF;"> </p>        
+          <p>
+            <input
+              min="0"
+              type="number"
+              name="marbles"
+              formControlName="marbles"
+              style="background-color: #0080FF;"
+            />
+          </p>
         </div>
         <button
           type="submit"
