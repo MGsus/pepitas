@@ -1,29 +1,27 @@
 // Angular
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { JwtModule } from '@auth0/angular-jwt';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { JwtModule } from "@auth0/angular-jwt";
 import { ChartsModule } from "ng2-charts";
 // Modules
-import { AppRoutingModule } from './app-routing.module';
-import { SharedModule } from './shared/shared.module';
+import { AppRoutingModule } from "./app-routing.module";
+import { SharedModule } from "./shared/shared.module";
 // Services
-import { PoolService } from './services/pool.service';
-import { UserService } from './services/user.service';
-import { AuthService } from './services/auth.service';
-import { AuthGuardLogin } from './services/auth-guard-login.service';
-import { AuthGuardAdmin } from './services/auth-guard-admin.service';
+import { PoolService } from "./services/pool.service";
+import { UserService } from "./services/user.service";
+import { AuthService } from "./services/auth.service";
+import { AuthGuardLogin } from "./services/auth-guard-login.service";
+import { AuthGuardAdmin } from "./services/auth-guard-admin.service";
 // Components
-import { AppComponent } from './app.component';
-import { PoolsComponent } from './pools/pools.component';
-import { RegisterComponent } from './register/register.component';
-import { LoginComponent } from './login/login.component';
-import { LogoutComponent } from './logout/logout.component';
-import { AccountComponent } from './account/account.component';
-import { AdminComponent } from './admin/admin.component';
-import { NotFoundComponent } from './not-found/not-found.component';
-import { VoteComponent } from './vote/vote.component';
+import { AppComponent } from "./app.component";
+import { PoolsComponent } from "./pools/pools.component";
+import { RegisterComponent } from "./register/register.component";
+import { LoginComponent } from "./login/login.component";
+import { LogoutComponent } from "./logout/logout.component";
+import { NotFoundComponent } from "./not-found/not-found.component";
+import { VoteComponent } from "./vote/vote.component";
 
 export function tokenGetter() {
-  return localStorage.getItem('token');
+  return localStorage.getItem("token");
 }
 
 @NgModule({
@@ -33,8 +31,6 @@ export function tokenGetter() {
     RegisterComponent,
     LoginComponent,
     LogoutComponent,
-    AccountComponent,
-    AdminComponent,
     NotFoundComponent,
     VoteComponent
   ],
@@ -44,7 +40,7 @@ export function tokenGetter() {
     ChartsModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter,
+        tokenGetter
         // whitelistedDomains: ['localhost:3000', 'localhost:4200']
       }
     })
@@ -59,5 +55,4 @@ export function tokenGetter() {
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
-
-export class AppModule { }
+export class AppModule {}

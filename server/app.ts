@@ -30,7 +30,7 @@ mongoose.set("useNewUrlParser", true);
 mongoose.set("useFindAndModify", false);
 mongoose.set("useUnifiedTopology", true);
 mongoose
-  .connect("mongodb://localhost:27017/pepitas")
+  .connect("mongodb://127.0.0.1:27017/pepitas")
   .then(db => {
     console.log(`Connected to MongoDB ${typeof db}`);
 
@@ -42,7 +42,7 @@ mongoose
 
     if (!module.parent) {
       app.listen(app.get("port"), () =>
-        console.log(`Angular Full Stack listening on port ${app.get("port")}`)
+        console.log(`pepitas backend listening on port ${app.get("port")}`)
       );
     }
   })

@@ -19,9 +19,17 @@ export default class poolCtrl extends BaseCtrl {
       bcrypt.hash(Date(), salt, function(err: any, hash: any) {
         if (err) return res.json(err);
         else {
+          const date = new Date(Date());
+          console.log(date.toDateString());
+
           const nwPool = new Pool();
           nwPool.code = hash.substring(7, 12);
-          nwPool.date = Date();
+          nwPool.date = date.toLocaleDateString("es-ES", {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+          });
           nwPool.totalPeople = _totalPpl;
           nwPool.marbles = _marbles;
           nwPool
@@ -52,37 +60,47 @@ export default class poolCtrl extends BaseCtrl {
     }
   };
 
-  updatePool = async (code: any, _greenM: any, _redM: any, user: any) => {
+  updatePool = async function(code: any, _greenM: any, _redM: any, user: any) {
     let response: Object;
+    var veVoted = 0;
     try {
-      let rslt = await this.model.findOne({ code: code });
-      if (!rslt) response = { message: "La sesion no existe" };
-      if (rslt.results.length !== 0)
-        rslt.results.forEach(async (obj: any) => {
-          if (obj.user == user) {
-            response = { message: "El usuario ya ha realizado su voto" };
-          } else {
-            // validar el numero de marbles no se pase del posible por persona
+      await this.model.findOne({ code: code }).then(async rslt => {
+        if (!rslt) response = { message: "La sesion no existe" };
+        if (rslt.results.length !== 0) {
+          rslt.results.forEach((obj: any) => {
+            if (obj.user == user) {
+              response = { message: "El usuario ya ha realizado su voto" };
+              veVoted = 1;
+            }
+          });
+          if (veVoted == 0) {
             rslt.results.push({
               user: user,
               redMarbles: _redM,
               greenMarbles: _greenM
             });
-            let _res = await rslt.save();
+            await rslt
+              .save()
+              .then((_res: Object) => {
+                if (!_res) response = { message: "no hay resultados" };
+                response = _res;
+              })
+              .catch((err: any) => {
+                console.log(err);
+              });
+          }
+        } else {
+          rslt.results.push({
+            user: user,
+            redMarbles: _redM,
+            greenMarbles: _greenM
+          });
+          await rslt.save().then((_res: Object) => {
             if (!_res) response = { message: "no hay resultados" };
             response = _res;
-          }
-        });
-      else {
-        rslt.results.push({
-          user: user,
-          redMarbles:  _redM,
-          greenMarbles: _greenM
-        });
-        let _res = await rslt.save();
-        if (!_res) response = { message: "no hay resultados" };
-        response = _res;
-      }
+          });
+        }
+      });
     } catch (_err) {
       if (_err) return { error: _err };
     }

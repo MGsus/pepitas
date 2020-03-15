@@ -19,7 +19,7 @@ const resultSchema = new mongoose.Schema({
 
 const poolSchema = new mongoose.Schema({
   code: String,
-  date: Date,
+  date: String,
   totalPeople: Number,
   marbles: Number,
   results: [resultSchema]

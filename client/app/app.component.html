@@ -1,5 +1,4 @@
 <div class="mx-auto">
-  
   <nav class="navbar navbar-expand-lg navbar-dark navbar-fixed-top">
     <button
       class="navbar-toggler"
@@ -15,8 +14,13 @@
     <div class="collapse navbar-collapse" id="navbar-supported-content">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
+          <a class="nav-link" routerLink="/" *ngIf="auth.loggedIn">
+            <i class="fa fa-user"></i> {{ auth.currentUser.nickname }}
+          </a>
+        </li>
+        <li class="nav-item">
           <a routerLink="/pools" class="nav-link" routerLinkActive="active">
-            <i class="fa fa-list"></i> Pools
+            <i class="fa fa-list-alt"></i> Votaciones
           </a>
         </li>
         <li class="nav-item">
@@ -26,7 +30,7 @@
             routerLinkActive="active"
             *ngIf="!auth.loggedIn"
           >
-            <i class="fa fa-sign-in"></i> Login
+            <i class="fa fa-sign-in"></i> Ingresar
           </a>
         </li>
         <li class="nav-item">
@@ -36,29 +40,10 @@
             routerLinkActive="active"
             *ngIf="!auth.loggedIn"
           >
-            <i class="fa fa-user-plus"></i> Register
+            <i class="fa fa-user-plus"></i> Registrarse
           </a>
         </li>
-        <li class="nav-item">
-          <a
-            routerLink="/account"
-            class="nav-link"
-            routerLinkActive="active"
-            *ngIf="auth.loggedIn"
-          >
-            <i class="fa fa-user"></i> {{ auth.currentUser.nickname }}
-          </a>
-        </li>
-        <li class="nav-item">
-          <a
-            routerLink="/admin"
-            class="nav-link"
-            routerLinkActive="active"
-            *ngIf="auth.loggedIn && auth.isAdmin"
-          >
-            <i class="fa fa-lock"></i> Admin
-          </a>
-        </li>
+
         <li class="nav-item">
           <a
             routerLink="/vote"
@@ -66,7 +51,7 @@
             routerLinkActive="active"
             *ngIf="auth.loggedIn"
           >
-            <i class="fa fa-bug"></i> Vote
+            <i class="fa fa-check-square-o"></i> Votar
           </a>
         </li>
         <li class="nav-item">
@@ -76,7 +61,7 @@
             routerLinkActive="active"
             *ngIf="auth.loggedIn"
           >
-            <i class="fa fa-sign-out"></i> Logout
+            <i class="fa fa-sign-out"></i> Salir
           </a>
         </li>
       </ul>

@@ -4,6 +4,13 @@
   appearance: textfield;
 }
 
+.green {
+  color: rgb(72, 202, 105) !important;
+}
+.red {
+  color: red !important;
+}
+
 .number-input input[type="number"]::-webkit-inner-spin-button,
 .number-input input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;

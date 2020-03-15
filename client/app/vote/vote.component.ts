@@ -77,21 +77,26 @@ export class VoteComponent implements OnInit {
   }
 
   _vote() {
-    // TODO: Corregir cuando recibe un json con un mensaje de error
-    // igualmente esta enviando el mensaje tu voto ha sido registrado
     this.user.vote(this.voteForm.value).subscribe(
       (res: any) => {
         // this.router.navigate(["/"]);
-        this.voteForm.reset;
-        
-        if (res.message !== undefined) this.msg.setMessage(res.message, "danger");
+        console.log(res);
+        console.log(res.message);
+
+        if (res.message !== undefined)
+          this.msg.setMessage(res.message, "danger");
+        else if (res.message === null)
+          this.msg.setMessage(res.message, "danger");
         else this.msg.setMessage("Tu voto ha sido registrado", "success");
       },
-      (error: any) =>
+      (error: any) => {
+        console.log(error);
+
         this.msg.setMessage(
           "se ha presentado un error al registrar tu voto",
           "danger"
-        )
+        );
+      }
     );
   }
 }

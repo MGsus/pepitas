@@ -13,6 +13,7 @@ import { PoolService } from "../services/pool.service";
 import { MsgComponent } from "../shared/msg/msg.component";
 import { Pool } from "../shared/models/pool.model";
 import * as $ from "jquery";
+import { AuthService } from "../services/auth.service";
 
 @Component({
   selector: "app-pools",
@@ -27,12 +28,16 @@ export class PoolsComponent implements OnInit {
   isLoading = true;
   isEditing = false;
   _showResult = false;
+  totalVotos: Number;
+  totalGrn: Number;
+  totalRed: Number;
 
   addPoolForm: FormGroup;
   totalPeople = new FormControl("", Validators.required);
   marbles = new FormControl("", Validators.required);
 
   constructor(
+    public auth: AuthService,
     private poolService: PoolService,
     private formBuilder: FormBuilder,
     public msg: MsgComponent
@@ -79,7 +84,7 @@ export class PoolsComponent implements OnInit {
   public barChartOptions: ChartOptions = {
     responsive: true,
     // We use these empty structures as placeholders for dynamic theming.
-    scales: { xAxes: [{}], yAxes: [{ticks:{beginAtZero: true}}] },
+    scales: { xAxes: [{}], yAxes: [{ ticks: { beginAtZero: true } }] },
     plugins: {
       datalabels: {
         anchor: "end",
@@ -87,7 +92,7 @@ export class PoolsComponent implements OnInit {
       }
     }
   };
-  public barChartLabels: Label[] = ["Canicas verdes Vs Canicas rojas"];
+  public barChartLabels: Label[] = [""];
   public barChartType: ChartType = "bar";
   public barChartColors: Array<any> = [
     { backgroundColor: "rgb(72,202,105)" },
@@ -95,7 +100,6 @@ export class PoolsComponent implements OnInit {
   ];
   public barChartLegend = true;
   public barChartPlugins = [pluginDataLabels];
-  // array de numeros y recorrer para colocar los numeros en el array de datos
 
   public barChartData: ChartDataSets[] = [
     {
@@ -125,14 +129,20 @@ export class PoolsComponent implements OnInit {
   }): void {
     console.log(event, active);
   }
-  public randomize(): void {
-    // produce la cantidad de pepitas verdes del array de resultados
-    const grnData = [
-      this.results.filter((res: any) => res.greenMarbles > 0).length
-    ];
-    let redData = [
-      this.results.filter((res: any) => res.redMarbles > 0).length
-    ];
+  public updateData(): void {
+    var greenMarbles = 0,
+      redMarbles = 0;
+    for (const person of this.results.filter(
+      (res: any) => res.greenMarbles >= 0
+    )) {
+      greenMarbles += person.greenMarbles;
+      redMarbles += person.redMarbles;
+    }
+    this.totalVotos = greenMarbles + redMarbles;
+    this.totalGrn = greenMarbles;
+    this.totalRed = redMarbles;
+    const grnData = [greenMarbles];
+    const redData = [redMarbles];
     this.barChartData[0].data = grnData;
     this.barChartData[1].data = redData;
   }
@@ -179,12 +189,18 @@ export class PoolsComponent implements OnInit {
     this.poolService.getPool(pool).subscribe(() => {
       this._showResult = true;
       this.results = pool.results;
-      const grnData = [
-        this.results.filter((res: any) => res.greenMarbles > 0).length
-      ];
-      let redData = [
-        this.results.filter((res: any) => res.redMarbles > 0).length
-      ];
+
+      var greenMarbles = 0,
+        redMarbles = 0;
+      for (const person of this.results.filter(res => res.greenMarbles >= 0)) {
+        greenMarbles += person.greenMarbles;
+        redMarbles += person.redMarbles;
+      }
+      this.totalVotos = greenMarbles + redMarbles;
+      this.totalGrn = greenMarbles;
+      this.totalRed = redMarbles;
+      const grnData = [greenMarbles];
+      let redData = [redMarbles];
       this.barChartData[0].data = grnData;
       this.barChartData[1].data = redData;
     });

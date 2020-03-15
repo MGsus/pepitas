@@ -9,8 +9,6 @@ import { PoolsComponent } from "./pools/pools.component";
 import { RegisterComponent } from "./register/register.component";
 import { LoginComponent } from "./login/login.component";
 import { LogoutComponent } from "./logout/logout.component";
-import { AccountComponent } from "./account/account.component";
-import { AdminComponent } from "./admin/admin.component";
 import { NotFoundComponent } from "./not-found/not-found.component";
 import { VoteComponent } from "./vote/vote.component";
 
@@ -21,12 +19,6 @@ const routes: Routes = [
   { path: "login", component: LoginComponent },
   { path: "logout", component: LogoutComponent },
   { path: "vote", component: VoteComponent },
-  {
-    path: "account",
-    component: AccountComponent,
-    canActivate: [AuthGuardLogin]
-  },
-  { path: "admin", component: AdminComponent, canActivate: [AuthGuardAdmin] },
   { path: "notfound", component: NotFoundComponent },
   { path: "**", redirectTo: "/notfound" }
 ];

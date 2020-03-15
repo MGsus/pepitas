@@ -2,7 +2,6 @@
 
 <div class="jumbotron text-center">
   <h1>Mood Marbles</h1>
-  <p>Metodoligías agile</p>
 </div>
 <div class="container-fluid">
   <div *ngIf="!isEditing" class="row">
@@ -12,45 +11,50 @@
     </div>
     <div class="col-sm-8 ">
       <h5>
-        Mood marbles es una metodología agile que pretende conocer el estado de
+        Mood marbles es una práctica agile que pretende conocer el estado de
         animo de un equipo de trabajo por medio de su voto por una canica verde
         o roja.
       </h5>
       <div>
         <h4 style="font-weight: bold;">
-          Cree una votación para aplicar la metodología con su equipo de
-          trabajo.
+          Cree una votación para aplicar la práctica con su equipo de trabajo.
         </h4>
       </div>
-      <form [formGroup]="addPoolForm" (ngSubmit)="addPool()">
-        <h4>Ingrese el número de personas.</h4>
-        <p>
+      <form [formGroup]="addPoolForm" (ngSubmit)="addPool()" class="form">
+        <h5>Ingrese el número de personas.</h5>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text"
+              ><i class="fa fa-user-circle"></i
+            ></span>
+          </div>
           <input
             min="0"
             type="number"
             name="totalPeople"
             formControlName="totalPeople"
-            style="background-color: #0080FF;"
+            class="form-control"
           />
-        </p>
-        <div class="form-group">
-          <h4>Ingrese el número de canicas.</h4>
-          <p>
-            <input
-              min="0"
-              type="number"
-              name="marbles"
-              formControlName="marbles"
-              style="background-color: #0080FF;"
-            />
-          </p>
+        </div>
+        <h5>Ingrese el número de canicas.</h5>
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fa fa-circle"></i></span>
+          </div>
+          <input
+            min="0"
+            type="number"
+            name="marbles"
+            formControlName="marbles"
+            class="form-control"
+          />
         </div>
         <button
           type="submit"
           class="btn btn-outline-primary"
           [disabled]="!addPoolForm.valid"
         >
-          <i></i>Crear
+          <i class="fa fa-plus"></i> Crear
         </button>
       </form>
     </div>
@@ -69,16 +73,21 @@
       <table class="table">
         <thead class="table table-hover">
           <tr>
-            <th class="bg-primary" style="color: azure;" scope="col">Código</th>
-            <th class="bg-primary" style="color: azure;" scope="col">Fecha</th>
-            <th class="bg-primary" scope="col"></th>
-            <th class="bg-primary" scope="col"></th>
+            <th class="bg-primary" style="color: azure;" scope="col">
+              <i class="fa fa-code"></i> Código
+            </th>
+            <th class="bg-primary" style="color: azure;" scope="col">
+              <i class="fa fa-calendar"></i> Fecha
+            </th>
+            <th class="bg-primary" style="color: azure;" scope="col">
+              <i class="fa fa-star"></i> Acciones
+            </th>
           </tr>
         </thead>
         <tbody *ngIf="pools.length === 0">
           <tr>
             <td colspan="4">
-              No ha creado ninguna votación. Agregue una a continuación.
+              No hay votaciones.
             </td>
           </tr>
         </tbody>
@@ -91,13 +100,13 @@
                 (click)="showResults(pool)"
                 class="btn btn-outline-primary"
               >
-                Mostrar
+                <i class="fa fa-search"></i> Mostrar
               </button>
               <button
                 (click)="deletePool(pool)"
                 class="btn btn-outline-primary"
               >
-                <i></i> Borrar
+                <i class="fa fa-close"></i> Borrar
               </button>
             </td>
           </tr>
@@ -107,55 +116,75 @@
   </div>
   <div *ngIf="_showResult" class="container-fluid text-center bg-light">
     <div>
-      <div style="display: block">
-        <canvas
-          baseChart
-          [colors]="barChartColors"
-          [datasets]="barChartData"
-          [labels]="barChartLabels"
-          [options]="barChartOptions"
-          [plugins]="barChartPlugins"
-          [legend]="barChartLegend"
-          [chartType]="barChartType"
-        >
-        </canvas>
-      </div>
-      <button
-        mat-button
-        mat-raised-button
-        class="btn btn-outline-primary"
-        (click)="randomize()"
+      <canvas
+        baseChart
+        [colors]="barChartColors"
+        [datasets]="barChartData"
+        [labels]="barChartLabels"
+        [options]="barChartOptions"
+        [plugins]="barChartPlugins"
+        [legend]="barChartLegend"
+        [chartType]="barChartType"
       >
-        Actualizar
-      </button>
+      </canvas>
     </div>
+    <button
+      mat-button
+      mat-raised-button
+      class="btn btn-outline-primary"
+      (click)="updateData()"
+    >
+      <i class="fa fa-refresh"></i> Actualizar
+    </button>
   </div>
-  <div class="row slideanim">
-    <div class="col-sm-4"></div>
-    <div *ngIf="_showResult">
-      <table>
-        <thead class="table table-hover">
-          <tr>
-            <th class="bg-primary" style="color: azure;" scope="col">
-              Usuario
-            </th>
-            <th class="bg-primary" style="color: azure;" scope="col">
-              Canicas verdes
-            </th>
-            <th class="bg-primary" style="color: azure;" cope="col">
-              Canicas rojas
-            </th>
-          </tr>
-        </thead>
-        <tbody *ngFor="let result of results">
-          <td>{{ result.user }}</td>
-          <td>{{ result.greenMarbles }}</td>
-          <td>{{ result.redMarbles }}</td>
-        </tbody>
-      </table>
-      <button class="btn btn-outline-primary" (click)="cancelResults()">
-        <i></i> Ocultar
-      </button>
+</div>
+<div class="container-fluid text-center" id="Info">
+  <div *ngIf="_showResult && auth.isAdmin">
+    <h2 style="text-align: center;">Tabla de Resultados</h2>
+    <div class="row slideanim">
+      <div class="col-sm-4"></div>
+      <div>
+        <table class="table">
+          <thead class="table table-hover">
+            <tr>
+              <th class="bg-primary" style="color: azure;" scope="col">
+                <i class="fa fa-user"></i> Usuario
+              </th>
+              <th class="bg-primary" style="color: azure;" scope="col">
+                <i class="fa fa-circle green"></i> Canicas verdes
+              </th>
+              <th class="bg-primary" style="color: azure;" cope="col">
+                <i class="fa fa-circle red"></i> Canicas rojas
+              </th>
+              <th class="bg-primary" scope="col"></th>
+              <th class="bg-primary" scope="col"></th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let result of results">
+            <td>{{ result.user }}</td>
+            <td>{{ result.greenMarbles }}</td>
+            <td>{{ result.redMarbles }}</td>
+          </tbody>
+        </table>
+        <div style="text-align:left;">
+          <h5>
+            Total de canicas verdes: {{ totalGrn }}
+            <i class="fa fa-circle green"></i>
+          </h5>
+
+          <h5>
+            Total de canicas rojas: {{ totalRed }}
+            <i class="fa fa-circle red"></i>
+          </h5>
+
+          <h5>Total de canicas: {{ totalVotos }}</h5>
+        </div>
+        <div style="text-align: center;">
+          <button class="btn btn-outline-primary" (click)="cancelResults()">
+            <i class="fa fa-close"></i> Ocultar
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -169,7 +198,7 @@
     <div class="col-sm-4">
       <span class="fa fa-cloud logo-small"></span>
       <h4>IBM CLOUD</h4>
-      <p>CLOUD FUTURE CLUB COLOMBIA 2020</p>
+      <p>FUTURE CLUB COLOMBIA 2020</p>
     </div>
   </div>
 </div>
